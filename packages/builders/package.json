@@ -1,0 +1,7 @@
+{
+  "name": "@metain/builders",
+  "version": "1.0.0",
+  "main": "dist/metain-builders.cjs.js",
+  "module": "dist/metain-builders.esm.js",
+  "dependencies": {}
+}
