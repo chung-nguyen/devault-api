@@ -31,6 +31,8 @@ export default async function (params) {
     throw new Error("Username was not associated with a wallet");
   }
 
+  const id = Date.now();
+
   const RPC_URL = constant.RPC_URL;
   const NFT_CONTRACT_ADDRESS = constant.NFT_CONTRACT_ADDRESS;
   const OWNER_ADDRESS = constant.OWNER_ADDRESS;
@@ -39,7 +41,7 @@ export default async function (params) {
   const web3 = new Web3(RPC_URL);
   const contract = new web3.eth.Contract(NFTABI.abi, NFT_CONTRACT_ADDRESS);
 
-  const method = contract.methods.mintTo(account.address.S);
+  const method = contract.methods.create(id, account.address.S);
   const gas = await method.estimateGas({ from: OWNER_ADDRESS });
   const data = method.encodeABI();
 
@@ -55,6 +57,7 @@ export default async function (params) {
 
   const txHash = await sendTransaction(web3, txData.rawTransaction);
   return {
+    id,
     txHash
   };
 }

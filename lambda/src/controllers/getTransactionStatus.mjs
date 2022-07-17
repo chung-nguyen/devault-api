@@ -35,6 +35,13 @@ export default async function (params) {
   const web3 = new Web3(RPC_URL);
   const result = await web3.eth.getTransactionReceipt(hash);
 
+  if (!result) {
+    return {
+      hash,
+      result: null
+    }
+  }
+
   const TRANSFER_EVENT_HASH = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef";
 
   if (result.logs) {
